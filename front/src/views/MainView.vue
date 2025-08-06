@@ -166,6 +166,12 @@
     padding: 1rem;
   }
 
+  .hero-section {
+    text-align: center;
+    margin-top : 5rem;
+    width: 100%;
+  }
+
   .hero-title {
     font-size: 2.5rem;
   }

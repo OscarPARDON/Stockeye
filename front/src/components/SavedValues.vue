@@ -1,5 +1,11 @@
 <template>
-  <div class="sidebar" :class="{ 'sidebar-open': savedStore.sidebar }">
+  <div
+    class="sidebar"
+    :class="{ 'sidebar-open': savedStore.sidebar }"
+    @touchstart="handleTouchStart"
+    @touchmove="handleTouchMove"
+    @touchend="handleTouchEnd"
+  >
     <!-- Toggle Sidebar button -->
     <button @click="savedStore.toggleSidebar()" class="sidebar-toggle">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -62,10 +68,53 @@
   </div>
 </template>
 <script setup>
-import {onMounted, onUnmounted} from 'vue';
+import {onMounted, onUnmounted, ref} from 'vue';
 import { useSavedStore } from '../stores/savedStore.js';
 
 const savedStore = useSavedStore();
+
+// Variables pour la gestion du swipe
+const touchStartX = ref(0);
+const touchStartY = ref(0);
+const touchEndX = ref(0);
+const touchEndY = ref(0);
+const minSwipeDistance = 50; // Distance minimale pour considérer un swipe
+const maxVerticalDistance = 100; // Distance verticale maximale pour un swipe horizontal
+
+// Gestion du début du touch
+const handleTouchStart = (e) => {
+  touchStartX.value = e.touches[0].clientX;
+  touchStartY.value = e.touches[0].clientY;
+};
+
+// Gestion du mouvement du touch
+const handleTouchMove = (e) => {
+  // Empêcher le scroll par défaut pendant le swipe
+  if (savedStore.sidebar) {
+    e.preventDefault();
+  }
+};
+
+// Gestion de la fin du touch
+const handleTouchEnd = (e) => {
+  touchEndX.value = e.changedTouches[0].clientX;
+  touchEndY.value = e.changedTouches[0].clientY;
+
+  handleSwipe();
+};
+
+const handleSwipe = () => {
+  const deltaX = touchStartX.value - touchEndX.value;
+  const deltaY = Math.abs(touchStartY.value - touchEndY.value);
+
+  if (
+    deltaX > minSwipeDistance &&
+    deltaY < maxVerticalDistance &&
+    savedStore.sidebar
+  ) {
+    savedStore.toggleSidebar();
+  }
+};
 
 onMounted(() => {
   savedStore.startAutoRefresh();

@@ -156,7 +156,7 @@ function isSaved(symbol) {
   margin-top: 0.5rem;
   max-height: 400px;
   overflow-y: auto;
-  z-index: 1000;
+  z-index: 999;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 

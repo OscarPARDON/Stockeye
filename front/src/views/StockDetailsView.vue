@@ -295,7 +295,21 @@ onMounted(async () => {
   z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 2rem;
+  }
 }
 
 .back-button-container {
@@ -306,20 +320,30 @@ onMounted(async () => {
 .back-button {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.5rem;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(139, 69, 255, 0.3);
-  border-radius: 16px;
+  border-radius: 12px;
   color: #ffffff;
   font-family: 'Rajdhani', sans-serif;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  width: fit-content;
+}
+
+@media (min-width: 640px) {
+  .back-button {
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    font-size: 1rem;
+  }
 }
 
 .back-button:hover {
@@ -352,50 +376,80 @@ onMounted(async () => {
 
 .page-title {
   font-family: 'Orbitron', monospace;
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(1.5rem, 6vw, 3.5rem);
   font-weight: 900;
   color: #ffffff;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   text-shadow: 0 0 30px rgba(139, 69, 255, 0.6);
   letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .page-title {
+    margin-bottom: 2rem;
+    padding: 0;
+  }
 }
 
 .stock-header {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(139, 69, 255, 0.3);
-  border-radius: 20px;
-  padding: 2rem;
-  margin-bottom: 2rem;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 640px) {
+  .stock-header {
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
 }
 
 .stock-name {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 2rem;
+  font-size: clamp(1.25rem, 4vw, 2rem);
   font-weight: 600;
   color: #ffffff;
   margin-bottom: 1rem;
+  line-height: 1.2;
+  word-break: break-word;
 }
 
 .stock-symbol {
   font-family: 'Orbitron', monospace;
   color: #8b45ff;
   font-weight: 700;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .stock-symbol {
+    display: inline;
+    margin-top: 0;
+  }
 }
 
 .current-price {
   font-family: 'Orbitron', monospace;
-  font-size: 3rem;
+  font-size: clamp(2rem, 8vw, 3rem);
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 0.5rem;
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  line-height: 1;
 }
 
 .price-change {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
   font-weight: 600;
 }
 
@@ -411,20 +465,47 @@ onMounted(async () => {
 
 .info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 640px) {
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .info-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
 }
 
 .info-card {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(15px);
   border: 1px solid rgba(139, 69, 255, 0.2);
-  border-radius: 16px;
-  padding: 1.5rem;
+  border-radius: 12px;
+  padding: 1.25rem;
   position: relative;
   transition: all 0.3s ease;
   overflow: hidden;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 640px) {
+  .info-card {
+    border-radius: 16px;
+    padding: 1.5rem;
+    min-height: 140px;
+  }
 }
 
 .info-card::before {
@@ -451,28 +532,48 @@ onMounted(async () => {
 
 .info-label {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 0.5rem;
   font-weight: 500;
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .info-label {
+    font-size: 0.9rem;
+  }
 }
 
 .info-value {
   font-family: 'Orbitron', monospace;
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
   font-weight: 600;
   color: #ffffff;
   margin-bottom: 0.5rem;
+  line-height: 1.2;
+  word-break: break-all;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
 }
 
 .info-icon {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.5rem;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-size: 1.2rem;
   opacity: 0.6;
+}
+
+@media (min-width: 640px) {
+  .info-icon {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+  }
 }
 
 @keyframes fadeIn {
@@ -487,54 +588,109 @@ onMounted(async () => {
 }
 
 @media (max-width: 768px) {
-  .container {
-    padding: 1rem;
-  }
-
-  .info-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .current-price {
-    font-size: 2.5rem;
-  }
-
-  .stock-header {
-    padding: 1.5rem;
-  }
-
-  .back-button {
-    padding: 0.75rem 1.25rem;
-    font-size: 0.9rem;
+  .glow-orb {
+    width: 200px !important;
+    height: 200px !important;
   }
 }
 
 @media (max-width: 480px) {
-  .page-title {
-    font-size: 2rem;
+  .container {
+    padding: 0.75rem;
   }
 
-  .stock-name {
-    font-size: 1.5rem;
+  .stock-header {
+    padding: 1rem;
+    margin-bottom: 1rem;
   }
 
-  .current-price {
-    font-size: 2rem;
+  .info-grid {
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
   }
 
   .info-card {
-    padding: 1.25rem;
+    padding: 1rem;
+    min-height: 100px;
+  }
+
+  .info-icon {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .glow-orb {
+    width: 150px !important;
+    height: 150px !important;
+    filter: blur(40px) !important;
+  }
+
+  .loading-spinner {
+    width: 80px;
+    height: 80px;
+  }
+
+  .loading-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  .page-title {
+    margin-bottom: 1rem;
+  }
+
+  .stock-header {
+    padding: 0.75rem;
+  }
+
+  .info-card {
+    padding: 0.75rem;
+    min-height: 90px;
   }
 
   .back-button {
-    padding: 0.6rem 1rem;
-    font-size: 0.85rem;
-    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Amélioration pour les très grands écrans */
+@media (min-width: 1440px) {
+  .info-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Orientation paysage pour mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
 
-  .back-icon {
-    font-size: 1rem;
+  .stock-header {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .info-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .info-card {
+    padding: 0.75rem;
+    min-height: 80px;
+  }
+
+  .glow-orb {
+    display: none;
   }
 }
 </style>
